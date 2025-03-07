@@ -1,0 +1,10 @@
+host: 127.0.0.1
+port: 8000
+
+import_path: jieba_serve:deployment
+
+runtime_env: {}
+
+deployments:
+  - name: jieba_serve
+    num_replicas: 2

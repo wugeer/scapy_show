@@ -1,0 +1,50 @@
+apiVersion: ray.io/v1
+kind: RayCluster
+metadata:
+  name: jieba-segmentor-cluster
+spec:
+  rayVersion: '2.9.0'
+  headGroupSpec:
+    rayStartParams:
+      dashboard-host: '0.0.0.0'
+      block: 'true'
+    template:
+      spec:
+        containers:
+        - name: ray-head
+          image: xhw/jieba-segmentor:v2  # 替换为你的Docker镜像
+          ports:
+          - containerPort: 6379  # Redis port for Ray
+          - containerPort: 8265  # Ray dashboard
+          - containerPort: 8000  # Ray Serve
+          resources:
+            limits:
+              cpu: "1"
+              memory: "2Gi"
+            requests:
+              cpu: "0.5"
+              memory: "1Gi"
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - "wget -q -O - http://localhost:8000/health || exit 1"
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - "wget -q -O - http://localhost:8000/health || exit 1"
+            initialDelaySeconds: 40
+            periodSeconds: 15
+          volumeMounts:
+            - mountPath: /app/data
+              name: data-volume
+        volumes:
+        - name: data-volume
+          emptyDir: {}
+  workerGroupSpecs: []  # 不需要worker节点，因为我们只需要一个副本
+
