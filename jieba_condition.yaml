@@ -1,0 +1,9 @@
+proxy_location: HeadOnly
+http_options:
+  host: 127.0.0.1
+  port: 8000
+
+applications:
+  - name: jieba_token
+    route_prefix: /jieba
+    import_path: jieba_serve:deployment
