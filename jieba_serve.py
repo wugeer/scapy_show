@@ -6,9 +6,9 @@ import json
 
 app = FastAPI()
 
-@ray.remote
 @serve.deployment(num_replicas=1)
 @serve.ingress(app)
+@ray.remote
 class JiebaSegmentorService:
     def __init__(self, config=None):
         if config is None:
