@@ -17,14 +17,12 @@ spec:
         import_path: jieba_serve:deployment
         route_prefix: /jieba
         runtime_env:
-          working_dir: "https://github.com/wugeer/scapy_show/archive/3ddaaa073cdfa45345627d7bf63843ec370db38a.zip"
+          working_dir: "https://github.com/wugeer/scapy_show/archive/6a5e1d85ab161cade46e1406782bdc91b1a08d4b.zip"
           pip:
             - jieba
         deployments:
           - name: JiebaSegmentorService
             num_replicas: 1
-            ray_actor_options:
-              num_cpus: 0.2
   rayClusterConfig:
     rayVersion: '2.41.0' # should match the Ray version in the image of the containers
     ######################headGroupSpecs#################################
@@ -44,10 +42,10 @@ spec:
               resources:
                 limits:
                   cpu: 2
-                  memory: 2Gi
+                  memory: 4Gi
                 requests:
                   cpu: 2
-                  memory: 2Gi
+                  memory: 4Gi
               ports:
                 - containerPort: 6379
                   name: gcs-server
