@@ -7,10 +7,12 @@ import json
 app = FastAPI()
 
 @serve.deployment(num_replicas=1)
-@serve.ingress(app)
 class JiebaSegmentorService:
-    def __init__(self):
+    def __init__(self, config=None):
+        if config is None:
+            config = {}
         self.name = "jieba-segmentor"
+        self.language = config.get("language", "chinese")
         print("Initialized Jieba Segmentor Service")
 
     @app.post("/segment")

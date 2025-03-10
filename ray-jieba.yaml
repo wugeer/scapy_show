@@ -13,7 +13,7 @@ spec:
   # Only one of serveConfig and serveConfigV2 should be used.
   serveConfigV2: |
     applications:
-      - name: jieba_token 
+      - name: jieba_serve
         import_path: jieba_serve:deployment
         route_prefix: /jieba
         runtime_env:
@@ -25,8 +25,6 @@ spec:
             num_replicas: 1
             ray_actor_options:
               num_cpus: 0.2
-            user_config:
-              language: french
   rayClusterConfig:
     rayVersion: '2.41.0' # should match the Ray version in the image of the containers
     ######################headGroupSpecs#################################
