@@ -7,6 +7,7 @@ import json
 app = FastAPI()
 
 @serve.deployment(num_replicas=1)
+@serve.ingress(app)
 class JiebaSegmentorService:
     def __init__(self, config=None):
         if config is None:
@@ -30,6 +31,7 @@ class JiebaSegmentorService:
         return {"status": "Jieba Segmentor Service is running"}
 
 deployment = JiebaSegmentorService.bind()
+serve.run(deployment, route_prefix="/")
 
 if __name__ == "__main__":
     # 测试模式下直接启动服务

@@ -17,7 +17,7 @@ spec:
         import_path: jieba_serve:deployment
         route_prefix: /jieba
         runtime_env:
-          working_dir: "https://github.com/wugeer/scapy_show/archive/5609249a13f97117316e7a5f28a26d1a7e2f245b.zip"
+          working_dir: "https://github.com/wugeer/scapy_show/archive/3ddaaa073cdfa45345627d7bf63843ec370db38a.zip"
           pip:
             - jieba
         deployments:
